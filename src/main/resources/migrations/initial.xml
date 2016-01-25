@@ -6,14 +6,50 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
   <changeSet id="1" author="Makoto">
+    <createTable tableName="questions">
+      <column name="question_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="closed_date" type="timestamptz"/>
+      <column name="creation_date" type="timestamptz"/>
+      <column name="last_edit_date" type="timestamptz"/>
+    </createTable>
+
     <createTable tableName="tags">
-      <column name="question_id" type="integer">
-        <constraints nullable="false" />
+      <column name="question_id" type="bigint">
+        <constraints nullable="false"/>
       </column>
       <column name="tags" type="TAG_STRING_ARRAY"/>
     </createTable>
+
+    <createTable tableName="gold_tags">
+      <column name="user_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="badges" type="BADGE_STRING_ARRAY"/>
+    </createTable>
+
+    <createTable tableName="users">
+      <column name="user_id" type="bigint">
+        <constraints nullable="false" unique="true" />
+      </column>
+      <column name="display_name" type="CHARACTER VARYING(255)"/>
+    </createTable>
+
+    <addForeignKeyConstraint baseColumnNames="user_id"
+                             baseTableName="gold_tags"
+                             constraintName="fk_gold_tags_to_users"
+                             onDelete="CASCADE"
+                             referencedColumnNames="user_id"
+                             referencedTableName="users"/>
+
+    <createIndex tableName="questions" indexName="idx_questions_closed_date">
+      <column name="closed_date" type="timestamptz"/>
+    </createIndex>
+
     <modifySql dbms="postgresql">
-      <replace replace="TAG_STRING_ARRAY" with="CHARACTER VARYING(255)[5]" />
+      <replace replace="TAG_STRING_ARRAY" with="CHARACTER VARYING(255)[5]"/>
+      <replace replace="BADGE_STRING_ARRAY" with="CHARACTER VARYING(255)[]"/>
     </modifySql>
   </changeSet>
 </databaseChangeLog>

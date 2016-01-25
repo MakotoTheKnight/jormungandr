@@ -42,3 +42,12 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = 2.10
 }
+
+configurations {
+    providedRuntime
+}
+
+// Lifecycle tasks:  ensure that Liquibase migrations run before tests and bootRepackage
+testClasses.dependsOn(update)
+bootRepackage.dependsOn(update)
+bootRun.dependsOn(update)
