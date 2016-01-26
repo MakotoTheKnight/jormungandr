@@ -22,9 +22,14 @@ buildscript {
 
 liquibase {
     activities {
-        main {
+        Properties props = new Properties()
+        props.load(new FileInputStream('liquibase.properties'))
+
+        migration {
             changeLogFile 'src/main/resources/liquibase-changelog.xml'
-            url 'jdbc:postgresql://localhost:5432/jormungandr'
+            url props.url
+            username props.username
+            password props.password
         }
     }
 }
@@ -37,6 +42,11 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter"
     compile "org.liquibase:liquibase-core"
     testCompile 'junit:junit'
+}
+
+
+jar {
+    baseName = 'jormungandr'
 }
 
 task wrapper(type: Wrapper) {
