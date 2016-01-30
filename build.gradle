@@ -40,10 +40,10 @@ repositories {
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter"
+    compile "org.springframework:spring-web"
     compile "org.liquibase:liquibase-core"
     testCompile 'junit:junit'
 }
-
 
 jar {
     baseName = 'jormungandr'
