@@ -1,4 +1,4 @@
-package io.makototheknight.jormungandr.database;
+package io.makototheknight.jormungandr.database.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "questions")
 public class Question implements Serializable {
 
     @Id

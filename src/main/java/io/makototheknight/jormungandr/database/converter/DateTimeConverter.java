@@ -1,4 +1,4 @@
-package io.makototheknight.jormungandr.database.converters;
+package io.makototheknight.jormungandr.database.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

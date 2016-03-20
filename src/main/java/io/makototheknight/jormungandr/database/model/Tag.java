@@ -1,28 +1,27 @@
-package io.makototheknight.jormungandr.database;
+package io.makototheknight.jormungandr.database.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Arrays;
 
-@Entity
+@Entity(name = "tags")
 public class Tag implements Serializable {
 
     @Id
-    @ManyToOne(targetEntity = Question.class)
-    private Question questionId;
+    @Column
+    private Long questionId;
 
     @Column
     private String[] tags;
 
 
-    public Question getQuestionId() {
+    public Long getaQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(Question questionId) {
+    public void setQuestionId(Long questionId) {
         this.questionId = questionId;
     }
 
